@@ -3,3 +3,8 @@
 *{
     font-family: "Poppins", sans-serif;
 }
+
+
+.Toastify__progress-bar--success {
+    background: #ff4d4d;
+}

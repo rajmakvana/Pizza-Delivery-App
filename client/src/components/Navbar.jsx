@@ -8,7 +8,7 @@ const Navbar = () => {
     const { cartItems } = useContext(CartContext);
 
   return (
-    <div className="px-5 py-3 flex justify-between items-center text-black">
+    <div className="px-5 py-3 flex justify-between items-center text-black ">
       <div>
         <NavLink to="/">
           <img src="/img/logo.png" alt="" />
@@ -27,7 +27,7 @@ const Navbar = () => {
           <li className="hover:text-[#FE5F1E]">
             <NavLink
               to="/offer"
-              className={({ isActive }) => (isActive ? "text-[#FE5F1E]" : "")}
+              className={({ isActive }) => (isActive ? "text-[#2f2622]" : "")}
             >
               Offer
             </NavLink>
