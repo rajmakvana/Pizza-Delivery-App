@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from "./config/dataBase.js";
 import cartRoutes from "./routes/cart.route.js";
+import authRoutes from "./routes/auth.route.js";
 import cors from "cors";
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(cors());
 connectDB();
 
 app.use('/api/cart', cartRoutes);
+app.use('/api/auth' , authRoutes );
 
 
 app.listen(PORT , () => {
