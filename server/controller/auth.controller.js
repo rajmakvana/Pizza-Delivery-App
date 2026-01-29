@@ -34,7 +34,7 @@ export const login = async (req, res) => {
       success: true,
       message: "successfully login user",
       token,
-      data: { email: user.email, name: user.name },
+      user : { name: user.username },
     });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -60,10 +60,10 @@ export const signup = async (req , res) => {
 
         const token = jwt.sign({userId : newUser._id} , process.env.JWT_SECRET , {expiresIn : '1d'});
 
-        res.status(201).json({message : "User created successfully" , data : {email : newUser.email , name : newUser.name} , token});
+        res.status(201).json({message : "User created successfully" , user : { name: newUser.username }, token});
 
     }catch(error){
-        console.log(error)
+        // console.log(error)
          res.status(500).json({ message: "Server error", error: error.message });
     }
 }

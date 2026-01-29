@@ -2,10 +2,12 @@ import React, { useContext } from "react";
 import { NavLink } from "react-router";
 import { FaCartShopping } from "react-icons/fa6";
 import { CartContext } from "../context/cartContext";
+import AuthContext from "../context/authContext";
 
 const Navbar = () => {
 
     const { cartItems } = useContext(CartContext);
+    const {user , logout} = useContext(AuthContext);
 
   return (
     <div className="px-5 py-3 flex justify-between items-center text-black ">
@@ -32,7 +34,13 @@ const Navbar = () => {
               Offer
             </NavLink>
           </li>
-          <li className="hover:text-[#FE5F1E]">
+          {user ? (
+                 <li className="hover:text-[#FE5F1E]">
+            <button onClick={logout}>Logout</button>
+          </li>
+          ) : (
+            <div className="flex gap-8">
+              <li className="hover:text-[#FE5F1E]">
             <NavLink
               to="/register"
               className={({ isActive }) => (isActive ? "text-[#FE5F1E]" : "")}
@@ -48,6 +56,8 @@ const Navbar = () => {
               Login
             </NavLink>
           </li>
+            </div>
+          )} 
           <li className="px-4 py-2 rounded-full bg-[#FE5F1E] hover:bg-[#b23301]">
             <NavLink
               to="/cart"

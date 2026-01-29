@@ -10,7 +10,7 @@ const Menu = () => {
     const getData = async () => {
       try {
         const response = await Api.get("/cart");
-        setPizzas(JSON.parse(response.data));
+        setPizzas(response.data);
       } catch (error) {
         console.log(error);
       }

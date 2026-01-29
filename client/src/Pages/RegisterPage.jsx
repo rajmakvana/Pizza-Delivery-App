@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
+import api from '../services/api.js'
+import AuthContext from '../context/authContext.jsx'
+import { toast } from 'react-toastify'
 
 const RegisterPage = () => {
 
@@ -8,14 +11,33 @@ const RegisterPage = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm();
 
   const navigate = useNavigate();
+  const {AuthUser} = useContext(AuthContext);
 
-  const handleFormSubmit = (data) => {
-    console.log("Form Data Submitted: ", data);
-    // Add your login logic here
+  const handleFormSubmit = async (data) => {
+     try {
+      const response = await api.post(
+        "/auth/signup",
+        {
+            username: data.name,
+            email: data.email,
+            password: data.password,
+        }
+      );
+      
+      await AuthUser(response.data);
+      reset();
+      navigate("/");
+      toast.success("Registration successful! Order now.");
+
+    } catch (error) {
+      toast.error(error.response?.data.message || "Registration failed.");
+      reset();
+    }
   }
 
 
@@ -76,8 +98,9 @@ const RegisterPage = () => {
           <button
             type="submit"
             class="w-full bg-[#FE5F1E] text-white py-2 rounded-lg font-semibold hover:bg-[#d2511e] transition"
+            disabled={isSubmitting}
           >
-            Sign Up
+            {isSubmitting ? "Registering..." : "Register"}
           </button>
         </form>
 
